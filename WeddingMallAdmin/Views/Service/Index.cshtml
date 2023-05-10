@@ -1,0 +1,80 @@
+﻿@model IEnumerable<WeddingMallAdmin.Models.Service>
+
+@{
+    ViewData["Title"] = "All Users";
+}
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<h2>All Users</h2>
+<a asp-action="AddReservation" class="btn btn-sm btn-primary">Add User</a>
+<a asp-action="GetReservation" class="btn btn-sm btn-secondary">Get User</a>
+
+<table class="table table-sm table-striped table-bordered m-2">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Phone_No </th>
+       @*     <th>Category Name</th>*@
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.Name</td>
+                <td>@r.Description</td>
+                <td>@r.Price</td>
+                <td><img src="@r.Image"/></td>
+                <td>@r.Phone_No</td>
+               @* <td>@r.Category.Name</td>*@
+                <td>
+                    <a asp-action="UpdateReservation" asp-route-id="@r.Id">
+                        <button class="btnEdit"><i class="fa fa-edit"></i></button>
+                    </a>
+                </td>
+                <td>
+                    <form asp-action="DeleteReservation" method="post">
+                        <input type="hidden" value="@r.Id" name="ReservationId" />
+                        <button class="btnDelete"><i class="fa fa-trash"></i></button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    .btnDelete {
+        background-color: #DE3163;
+        border: none;
+        color: white;
+        padding: 12px 16px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+        /* Darker background on mouse-over */
+        .btnDelete:hover {
+            background-color: RoyalBlue;
+        }
+
+    .btnEdit {
+        background-color: DodgerBlue;
+        border: none;
+        color: white;
+        padding: 12px 16px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+        /* Darker background on mouse-over */
+        .btnEdit:hover {
+            background-color: RoyalBlue;
+        }
+</style>
